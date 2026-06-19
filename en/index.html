@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinStudio — Fast HEX Editor & Binary Viewer for Windows</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Official website of BinStudio — a high-performance HEX editor built on WinUI 3 for Windows 11. Instant opening of ultra-large files, auto-backup, search, and data inspector.">
+    <meta name="keywords" content="hex editor, binary viewer, large file editor, modify bytes, hex viewer windows, reverse engineering, data inspector hex, winui 3 hex editor, download hex editor">
+    
+    <!-- Open Graph (for links in Telegram, Discord, X) -->
+    <meta property="og:title" content="BinStudio — Fast HEX Editor & Binary Viewer">
+    <meta property="og:description" content="Blazing fast next-generation hexadecimal editor. Open multi-gigabyte files in milliseconds.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://unsplash.com">
+    
+    <!-- Fonts & Fluent Design Styles -->
+    <link rel="stylesheet" href="https://googleapis.com">
+    <style>
+        :root {
+            --bg-color: #1c1c1c;
+            --card-bg: #2b2b2b;
+            --accent-color: #0078d4;
+            --accent-hover: #106ebe;
+            --text-main: #ffffff;
+            --text-secondary: #aaaaaa;
+            --stroke-color: #3b3b3b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(45deg, #ffffff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lang-switch {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin-right: 20px;
+            transition: color 0.2s;
+        }
+
+        .lang-switch:hover {
+            color: var(--text-main);
+        }
+
+        .hero-section {
+            max-width: 1200px;
+            margin: 40px auto 80px auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-section { grid-template-columns: 1fr; text-align: center; }
+            .hero-image { order: -1; }
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 35px;
+        }
+
+        .btn-store {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.3);
+        }
+
+        .btn-store:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 1px solid var(--stroke-color);
+        }
+
+        .features-section {
+            background-color: #141414;
+            padding: 80px 40px;
+            border-top: 1px solid var(--stroke-color);
+        }
+
+        .features-container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--stroke-color);
+            padding: 30px;
+            border-radius: 8px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-card h3::before {
+            content: "⚡";
+            color: var(--accent-color);
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .manual-section {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .manual-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .manual-step {
+            margin-bottom: 25px;
+            background: #222;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .manual-step h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .manual-step p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+            background: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #ff8c00;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--stroke-color);
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-text">BinStudio</div>
+        <div>
+            <!-- Link back to Russian version -->
+            <a href="../" class="lang-switch">RU</a>
+            <a href="#download" class="btn-store" style="padding: 8px 16px; font-size: 14px;">Download</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Blazing Fast Next-Gen HEX Editor</h1>
+            <p>Work with binary files of any size (up to terabytes) instantly. Native WinUI 3 performance, asynchronous multi-threaded search, real-time data inspector, and automatic data protection.</p>
+            <a id="download" href="https://microsoft.com" class="btn-store">🛍️ Get from Microsoft Store</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://unsplash.com" alt="BinStudio UI Preview">
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <h2 class="section-title">Why Professionals Choose BinStudio</h2>
+            <div class="features-grid">
+                
+                <div class="feature-card">
+                    <h3>Memory Virtualization</h3>
+                    <p>The app does not load the entire file into RAM. Memory consumption remains minimal, allowing 100+ GB firmware or memory dumps to open in milliseconds.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Intuitive Byte Editing</h3>
+                    <p>Modify binary data effortlessly by double-clicking a byte. Type HEX values directly with automatic cursor advancement to the next cell.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Bulletproof Backups (.bak)</h3>
+                    <p>Complete safety. Before writing any modifications to the hard drive, BinStudio automatically creates a backup copy of the original file.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Data Inspector</h3>
+                    <p>Smart sidebar decodes the sequence of bytes under your cursor in real-time into human-readable Binary, Int16, Int32, Int64, and Float formats.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Asynchronous Search</h3>
+                    <p>Background multi-threaded scanning processed in 64 KB blocks for ASCII strings or HEX patterns with interactive side-panel navigation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Windows Integration</h3>
+                    <p>Full file type association support. <code>.bin</code> and <code>.hex</code> files automatically launch inside new tabs of BinStudio directly from File Explorer.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Manual Section -->
+    <section class="manual-section">
+        <h2>Quick Start with BinStudio</h2>
+        
+        <div class="manual-step">
+            <h4>1. Editing Mode</h4>
+            <p>Double-click any byte. Type the first half-byte (the cell shifts into a <code>?</code> state), then the second. Modified cells are highlighted in red until saved.</p>
+        </div>
+
+        <div class="manual-step">
+            <h4>2. Clipboard Operations</h4>
+            <p>Select a range of bytes by dragging LMB. Press <code>Ctrl + C</code> to export as a clean HEX string. Press <code>Ctrl + V</code> to paste with automatic spacing parsing.</p>
+        </div>
+
+        <div class="manual-step">
+            <h4>3. Theme Switching</h4>
+            <p>Navigate to <code>View -> Theme</code> menu to instantly switch between dark, light, or system themes. Your preferences are saved automatically.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 BinStudio Project. Powered by Windows App SDK &amp; WinUI 3. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
+        
+        <div class="manual-step">
