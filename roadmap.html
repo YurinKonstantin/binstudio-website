@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BinStudio — План развития проекта (Roadmap)</title>
+    <!-- Подключаем иконки для красивого Fluent-интерфейса -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <style>
+        :root {
+            --bg-color: #f3f3f3;
+            --card-bg: #ffffff;
+            --text-main: #242424;
+            --text-secondary: #5d5d5d;
+            --accent: #0078d4;
+            --accent-teal: #00b7c3;
+            --accent-green: #107c41;
+            --border-color: #e5e5e5;
+        }
+
+        /* Автоматическая темная тема Windows / Браузера */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #202020;
+                --card-bg: #2d2d2d;
+                --text-main: #ffffff;
+                --text-secondary: #adadad;
+                --border-color: #444444;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Кнопка возврата на главную страницу сайта */
+        .back-nav {
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .roadmap-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.3rem;
+        }
+
+        .phase-done i { color: var(--accent-green); }
+        .phase-current i { color: var(--accent-teal); }
+        .phase-future i { color: var(--accent); }
+
+        .card-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /*Fluent значки статусов */
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .badge-done { background-color: rgba(16, 124, 65, 0.15); color: #107c41; }
+        .badge-current { background-color: rgba(0, 183, 195, 0.15); color: #00b7c3; }
+        .badge-future { background-color: rgba(0, 120, 212, 0.15); color: #0078d4; }
+
+        .card-desc {
+            color: var(--text-secondary);
+            margin: 0 0 16px 0;
+            font-size: 0.95rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-family: "Consolas", monospace;
+            font-size: 0.8rem;
+            background-color: rgba(0,0,0,0.05);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .tag { background-color: rgba(255,255,255,0.05); }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Навигация обратно на главную index.html -->
+        <nav class="back-nav">
+            <a href="index.html" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i> Вернуться на главную
+            </a>
+        </nav>
+
+        <header>
+            <h1>BinStudio Roadmap</h1>
+            <p class="subtitle">Официальный план развития асинхронного Hex-редактора нового поколения</p>
+        </header>
+
+        <!-- ФАЗА 1: РЕАЛИЗОВАНО -->
+        <div class="roadmap-section">
+            <h2 class="section-title phase-done">
+                <i class="fa-solid fa-circle-check"></i> Фаза 1: Производительность и Архитектура
+            </h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Виртуализация данных и ОЗУ</h3>
+                        <span class="badge badge-done">Выполнено</span>
+                    </div>
+                    <p class="card-desc">Потоковое чтение файлов любого объема (вплоть до терабайтов) через FileStream. Использование фиксированного пула строк (Viewport Virtualization) гарантирует стабильный расход памяти в пределах 30-40 МБ и плавный скроллинг в 60+ FPS.</p>
+                    <div class="tech-tags">
+                        <span class="tag">FileStream</span>
+                        <span class="tag">Viewport Пул</span>
+                        <span class="tag">60+ FPS</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Транзакционная память (Буфер изменений)</h3>
+                        <span class="badge badge-done">Выполнено</span>
+                    </div>
+                    <p class="card-desc">Реализован изолированный буфер модификаций в ОЗУ. Любые правки не пишутся на диск мгновенно, а подсвечиваются красным цветом и сохраняются в файл только по нажатию кнопки «Сохранить».</p>
+                    <div class="tech-tags">
+                        <span class="tag">Dictionary Буфер</span>
+                        <span class="tag">Отложенная Запись</span>
+                        <span class="tag">Flush()</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФАЗА 2: В РАЗРАБОТКЕ (ВЕТКА UI) -->
+        <div class="roadmap-section">
+            <h2 class="section-title phase-current">
+                <i class="fa-solid fa-circle-dot"></i> Фаза 2: Fluent-интерфейс и Выделение (Ветка UI)
+            </h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Современная навигация и Меню</h3>
+                        <span class="badge badge-current">В процессе</span>
+                    </div>
+                    <p class="card-desc">Интеграция раздвижного бокового NavigationView и классического верхнего MenuBar со стандартным для Hex-редакторов набором возможностей (Файл, Правка, Вид, Анализ). Поддержка материала Mica для Windows 11.</p>
+                    <div class="tech-tags">
+                        <span class="tag">NavigationView</span>
+                        <span class="tag">MenuBar</span>
+                        <span class="tag">Mica Backdrop</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Многострочное побайтовое выделение</h3>
+                        <span class="badge badge-current">В процессе</span>
+                    </div>
+                    <p class="card-desc">Реализация сквозного выделения левой кнопкой мыши и протягивания синего шлейфа через несколько строк. Полный отказ от пиксельной математики в пользу высокопроизводительных инлайнов TextBlock.</p>
+                    <div class="tech-tags">
+                        <span class="tag">x:Bind жесты</span>
+                        <span class="tag">Run/Inlines</span>
+                        <span class="tag">Посимвольный расчет</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ФАЗА 3: БУДУЩИЕ ПЛАНЫ -->
+ <div class="roadmap-section">
+            <h2 class="section-title phase-future">
+                <i class="fa-solid fa-clock"></i> 3. Фаза 3: Анализ данных и Инструменты
+            </h2>
+            <div class="card-list">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Инспектор типов (Data Inspector)</h3>
+                        <span class="badge badge-future">Запланировано</span>
+                    </div>
+                    <p class="card-desc">Создание контекстной боковой панели для парсинга выделенных байт. Автоматический перевод сырых данных в типы Int8, UInt8, Int16, Int32, Float, Double и бинарную сетку (0101).</p>
+                    <div class="tech-tags">
+                        <span class="tag">Парсинг типов</span>
+                        <span class="tag">Binary Grid</span>
+                        <span class="tag">SidePanel</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Клавиатурная навигация</h3>
+                        <span class="badge badge-future">Запланировано</span>
+                    </div>
+                    <p class="card-desc">Полноценное управление сеткой байт с клавиатуры: перемещение фокуса стрелочками, выделение диапазонов через Shift+Стрелочки и поддержка глобальных сочетаний клавиш Ctrl+S / Ctrl+O.</p>
+                    <div class="tech-tags">
+                        <span class="tag">KeyDown</span>
+                        <span class="tag">Фокус сетки</span>
+                        <span class="tag">Shortcuts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Проект BinStudio развивается открыто. Исходный код доступен в <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub Репозитории</a>.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
